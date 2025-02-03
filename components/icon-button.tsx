@@ -4,7 +4,7 @@ import { DivideIcon as LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface IconButtonProps {
-  icon: LucideIcon;
+  icon: React.ElementType;
   label: string;
   isActive?: boolean;
   onClick: () => void;
