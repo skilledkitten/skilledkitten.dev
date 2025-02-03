@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Copy, RefreshCw, Check } from 'lucide-react';
 
 interface ColorGeneratorProps {
@@ -51,19 +51,19 @@ function generatePastelColor(seed: number): ColorInfo {
   };
 }
 
-function generateInitialColors(): ColorInfo[] {
-  return Array.from({ length: 5 }, (_, i) => generatePastelColor(i + 1));
+// Generate colors using a random seed based on the current timestamp.
+function generateRandomColors(): ColorInfo[] {
+  const timestamp = Date.now();
+  return Array.from({ length: 5 }, (_, i) =>
+    generatePastelColor((timestamp + i) % 1000000)
+  );
 }
 
 export function ColorGenerator({ isActive }: ColorGeneratorProps) {
-  const [colors, setColors] = useState<ColorInfo[]>(generateInitialColors());
-  const [mounted, setMounted] = useState(false);
+  // Initialize with random colors each time the page loads.
+  const [colors, setColors] = useState<ColorInfo[]>(generateRandomColors());
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const generateNewColors = () => {
     const timestamp = Date.now();
@@ -88,9 +88,6 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
-  // Only show dynamic content after mounting
-  const displayColors = mounted ? colors : generateInitialColors();
-
   return (
     <motion.section
       className={`absolute inset-0 pt-20 ${
@@ -114,7 +111,7 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
           </div>
 
           <div className="grid gap-4">
-            {displayColors.map((color, index) => (
+            {colors.map((color, index) => (
               <motion.div
                 key={index}
                 layout
