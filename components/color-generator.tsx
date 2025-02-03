@@ -152,7 +152,7 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
                       exit={{ height: 0 }}
                       className="border-t border-border"
                     >
-                      <div className="p-4 space-y-2 text-sm font-mono backdrop-brightness-[0.97]">
+                      <div className="p-4 space-y-2 text-sm font-mono">
                         <div>RGB: {color.rgb}</div>
                         <div>HSL: {color.hsl}</div>
                       </div>
