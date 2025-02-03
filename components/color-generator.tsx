@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
-import { Copy as CopyIcon, RefreshCw as RefreshCwIcon, Check as CheckIcon } from "lucide-react";
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { Copy, RefreshCw, Check } from 'lucide-react';
 
 interface ColorGeneratorProps {
   isActive: boolean;
@@ -17,11 +17,13 @@ interface ColorInfo {
 
 function hslToHex(h: number, s: number, l: number): string {
   l /= 100;
-  const a = s * Math.min(l, 1 - l) / 100;
+  const a = (s * Math.min(l, 1 - l)) / 100;
   const f = (n: number) => {
     const k = (n + h / 30) % 12;
     const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-    return Math.round(255 * color).toString(16).padStart(2, '0');
+    return Math.round(255 * color)
+      .toString(16)
+      .padStart(2, '0');
   };
   return `#${f(0)}${f(8)}${f(4)}`.toUpperCase();
 }
@@ -31,8 +33,10 @@ function hslToRgb(h: number, s: number, l: number): string {
   l /= 100;
   const k = (n: number) => (n + h / 30) % 12;
   const a = s * Math.min(l, 1 - l);
-  const f = (n: number) => l - a * Math.max(Math.min(k(n) - 3, 9 - k(n), 1), -1);
-  return `rgb(${Math.round(f(0) * 255)}, ${Math.round(f(8) * 255)}, ${Math.round(f(4) * 255)})`;
+    l - a * Math.max(Math.min(k(n) - 3, 9 - k(n), 1), -1);
+  return `rgb(${Math.round(f(0) * 255)}, ${Math.round(
+    f(8) * 255
+  )}, ${Math.round(f(4) * 255)})`;
 }
 
 function generatePastelColor(seed: number): ColorInfo {
@@ -42,7 +46,7 @@ function generatePastelColor(seed: number): ColorInfo {
   return {
     hex: hslToHex(h, s, l),
     hsl: `hsl(${Math.round(h)}, ${s}%, ${l}%)`,
-    rgb: hslToRgb(h, s, l)
+    rgb: hslToRgb(h, s, l),
   };
 }
 
@@ -53,7 +57,7 @@ function generateInitialColors(): ColorInfo[] {
 export function ColorGenerator({ isActive }: ColorGeneratorProps) {
   const [colors, setColors] = useState<ColorInfo[]>(generateInitialColors());
   const [mounted, setMounted] = useState(false);
-  const [copiedIndex, setCopiedIndex] = useState<string | null>(null);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   useEffect(() => {
@@ -62,18 +66,20 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
 
   const generateNewColors = () => {
     const timestamp = Date.now();
-    setColors(Array.from({ length: 5 }, (_, i) =>
-      generatePastelColor((timestamp + i) % 1000000)
-    ));
+    setColors(
+      Array.from({ length: 5 }, (_, i) =>
+        generatePastelColor((timestamp + i) % 1000000)
+      )
+    );
   };
 
-  const copyToClipboard = async (text: string, index: string) => {
+  const copyToClipboard = async (color: ColorInfo, index: number) => {
     try {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(color.hex);
       setCopiedIndex(index);
       setTimeout(() => setCopiedIndex(null), 1000); // Reset after 1 second
     } catch (err) {
-      console.error("Failed to copy:", err);
+      console.error('Failed to copy color:', err);
     }
   };
 
@@ -86,7 +92,9 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
 
   return (
     <motion.section
-      className={`absolute inset-0 pt-20 ${isActive ? "pointer-events-auto" : "pointer-events-none opacity-0"}`}
+      className={`absolute inset-0 pt-20 ${
+        isActive ? 'pointer-events-auto' : 'pointer-events-none opacity-0'
+      }`}
       animate={{ opacity: isActive ? 1 : 0 }}
       transition={{ duration: 0.3 }}
       style={{ zIndex: 10 }} // Increased z-index to appear above background but below navbar
@@ -100,7 +108,7 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
               className="p-2 hover:bg-muted rounded-lg transition-colors"
               aria-label="Generate new colors"
             >
-              <RefreshCwIcon className="w-5 h-5" />
+              <RefreshCw className="w-5 h-5" />
             </button>
           </div>
 
@@ -123,12 +131,12 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      copyToClipboard(color.hex, index.toString());
+                      copyToClipboard(color, index);
                     }}
                     className="p-2 hover:bg-background/20 rounded-lg transition-colors"
                     aria-label="Copy color code"
                   >
-                    {copiedIndex === index.toString() ? (
+                    {copiedIndex === index ? (
                       <Check className="w-4 h-4" />
                     ) : (
                       <Copy className="w-4 h-4" />
@@ -139,46 +147,13 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
                   {expandedIndex === index && (
                     <motion.div
                       initial={{ height: 0 }}
-                      animate={{ height: "auto" }}
+                      animate={{ height: 'auto' }}
                       exit={{ height: 0 }}
                       className="border-t border-border"
-                      style={{ backgroundColor: color.hex }}
                     >
-                      <div className="p-4 space-y-2 text-sm font-mono">
-                        <div className="flex items-center justify-between">
-                          <span>RGB: {color.rgb}</span>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              copyToClipboard(color.rgb, index + '_rgb');
-                            }}
-                            className="p-1.5 hover:bg-background/20 rounded-md transition-colors"
-                            aria-label="Copy RGB value"
-                          >
-                            {copiedIndex === index + '_rgb' ? (
-                              <CheckIcon className="w-3.5 h-3.5" />
-                            ) : (
-                              <CopyIcon className="w-3.5 h-3.5" />
-                            )}
-                          </button>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span>HSL: {color.hsl}</span>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              copyToClipboard(color.hsl, index + '_hsl');
-                            }}
-                            className="p-1.5 hover:bg-background/20 rounded-md transition-colors"
-                            aria-label="Copy HSL value"
-                          ></button>
-                            {copiedIndex === index + '_hsl' ? (
-                              <Check className="w-3.5 h-3.5" />
-                            ) : (
-                              <Copy className="w-3.5 h-3.5" />
-                            )}
-                          </button>
-                        </div>
+                      <div className="p-4 space-y-2 text-sm font-mono backdrop-brightness-[0.97]">
+                        <div>RGB: {color.rgb}</div>
+                        <div>HSL: {color.hsl}</div>
                       </div>
                     </motion.div>
                   )}
