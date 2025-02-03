@@ -150,7 +150,6 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
                       initial={{ height: 0 }}
                       animate={{ height: 'auto' }}
                       exit={{ height: 0 }}
-                      className="border-t border-border"
                     >
                       <div className="p-4 space-y-2 text-sm font-mono">
                         <div>RGB: {color.rgb}</div>
