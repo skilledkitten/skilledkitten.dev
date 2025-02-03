@@ -151,7 +151,7 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
                       animate={{ height: 'auto' }}
                       exit={{ height: 0 }}
                     >
-                      <div className="p-4 space-y-2 text-sm font-mono">
+                      <div className="px-4 pb-4 space-y-2 text-sm font-mono">
                         <div>RGB: {color.rgb}</div>
                         <div>HSL: {color.hsl}</div>
                       </div>
