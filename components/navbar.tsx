@@ -12,7 +12,7 @@ export function NavBar({ activeSection, onNavigate }: NavBarProps) {
   const navItems = [
     { id: "about", icon: UserCircle2, label: "About" },
     { id: "projects", icon: Briefcase, label: "Projects" },
-    { id: "colors", icon: PocketKnife, label: "Tools" },
+    { id: "tools", icon: PocketKnife, label: "Tools" },
   ];
 
   return (
@@ -24,7 +24,7 @@ export function NavBar({ activeSection, onNavigate }: NavBarProps) {
             icon={item.icon}
             label={item.label}
             isActive={activeSection === item.id}
-            onClick={() => onNavigate(item.id)}
+            onClick={() => onNavigate(item.id === "tools" ? "/tools" : item.id)}
           />
         ))}
       </div>
