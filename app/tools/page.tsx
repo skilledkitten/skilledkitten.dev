@@ -29,11 +29,11 @@ export default function ToolsPage() {
         <ToolsGrid onToolClick={openPastelGen} />
       </div>
       {isPastelGenOpen && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
-          <div className="relative bg-white rounded-lg shadow-xl p-6 max-w-[90vw] max-h-[90vh] overflow-auto">
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-8">
+          <div className="relative bg-white rounded-lg shadow-xl p-8 w-[800px] h-[600px] overflow-auto">
             <button
               onClick={closePastelGen}
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 z-10"
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 z-10"
             >
               ✕
             </button>
