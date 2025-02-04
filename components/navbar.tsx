@@ -16,7 +16,7 @@ export function NavBar({ activeSection, onNavigate }: NavBarProps) {
   ];
 
   return (
-    <nav className="h-14 flex items-center px-4 lg:px-6 border-b border-border bg-background/80 backdrop-blur-sm">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 bg-background/80 backdrop-blur-lg rounded-xl border border-border p-2 z-[100] shadow-lg">
       <div className="flex items-center gap-2">
         {navItems.map((item) => (
           <IconButton
