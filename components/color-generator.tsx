@@ -64,6 +64,7 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
   const [colors, setColors] = useState<ColorInfo[]>(generateRandomColors());
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [copiedValue, setCopiedValue] = useState<string | null>(null);
 
   const generateNewColors = () => {
     const timestamp = Date.now();
@@ -74,13 +75,13 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
     );
   };
 
-  const copyToClipboard = async (color: ColorInfo, index: number) => {
+  const copyToClipboard = async (value: string) => {
     try {
-      await navigator.clipboard.writeText(color.hex);
-      setCopiedIndex(index);
-      setTimeout(() => setCopiedIndex(null), 1000); // Reset after 1 second
+      await navigator.clipboard.writeText(value);
+      setCopiedValue(value);
+      setTimeout(() => setCopiedValue(null), 1000);
     } catch (err) {
-      console.error('Failed to copy color:', err);
+      console.error('Failed to copy value:', err);
     }
   };
 
@@ -129,7 +130,7 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      copyToClipboard(color, index);
+                      copyToClipboard(color.hex);
                     }}
                     className="p-2 hover:bg-background/20 rounded-lg transition-colors"
                     aria-label="Copy color code"
@@ -149,8 +150,40 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
                       exit={{ height: 0 }}
                     >
                       <div className="px-4 pb-4 space-y-2 text-sm font-mono">
-                        <div>RGB: {color.rgb}</div>
-                        <div>HSL: {color.hsl}</div>
+                        <div className="flex items-center justify-between">
+                          <span>RGB: {color.rgb}</span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              copyToClipboard(color.rgb);
+                            }}
+                            className="p-1 hover:bg-background/20 rounded-lg transition-colors"
+                            aria-label="Copy RGB value"
+                          >
+                            {copiedValue === color.rgb ? (
+                              <Check className="w-3 h-3" />
+                            ) : (
+                              <Copy className="w-3 h-3" />
+                            )}
+                          </button>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span>HSL: {color.hsl}</span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              copyToClipboard(color.hsl);
+                            }}
+                            className="p-1 hover:bg-background/20 rounded-lg transition-colors"
+                            aria-label="Copy HSL value"
+                          >
+                            {copiedValue === color.hsl ? (
+                              <Check className="w-3 h-3" />
+                            ) : (
+                              <Copy className="w-3 h-3" />
+                            )}
+                          </button>
+                        </div>
                       </div>
                     </motion.div>
                   )}
