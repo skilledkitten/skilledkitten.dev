@@ -1,6 +1,6 @@
 "use client";
 
-import { UserCircle2, Briefcase, Palette } from "lucide-react";
+import { UserCircle2, Briefcase, PocketKnife } from "lucide-react";
 import { IconButton } from "./icon-button";
 
 interface NavBarProps {
@@ -12,7 +12,7 @@ export function NavBar({ activeSection, onNavigate }: NavBarProps) {
   const navItems = [
     { id: "about", icon: UserCircle2, label: "About" },
     { id: "projects", icon: Briefcase, label: "Projects" },
-    { id: "colors", icon: Palette, label: "Color Generator" },
+    { id: "colors", icon: PocketKnife, label: "Tools" },
   ];
 
   return (
