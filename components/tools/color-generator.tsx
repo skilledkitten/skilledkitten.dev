@@ -7,6 +7,7 @@ import { Copy, RefreshCw, Check } from 'lucide-react';
 interface ColorGeneratorProps {
   isActive: boolean;
   onExpand: (content: { title: string; content: React.ReactNode }) => void;
+  onGenerateColors?: () => void;
 }
 
 interface ColorInfo {
@@ -67,7 +68,7 @@ function generateInitialColors(): ColorInfo[] {
   );
 }
 
-export function ColorGenerator({ isActive }: ColorGeneratorProps) {
+export function ColorGenerator({ isActive, onExpand, onGenerateColors }: ColorGeneratorProps) {
   const [colors, setColors] = useState<ColorInfo[]>(generateInitialColors());
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -85,7 +86,15 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
         generatePastelColor((timestamp + i) % 1000000)
       )
     );
+    onGenerateColors?.();
   };
+
+  // Expose generateNewColors to parent
+  useEffect(() => {
+    if (onGenerateColors) {
+      onGenerateColors = generateNewColors;
+    }
+  }, [onGenerateColors]);
 
   const copyToClipboard = async (value: string) => {
     try {
@@ -102,25 +111,15 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
   };
 
   return (
-    <motion.section
-      className={`absolute inset-0 pt-20 ${
+    <motion.div
+      className={`${
         isActive ? 'pointer-events-auto' : 'pointer-events-none opacity-0'
       }`}
       animate={{ opacity: isActive ? 1 : 0 }}
       transition={{ duration: 0.3 }}
-      style={{ zIndex: 10 }} // Increased z-index to appear above background but below navbar
     >
-      <div className="max-w-2xl mx-auto p-6">
-        <div className="flex flex-col gap-6">
-          <div className="flex justify-end items-center">
-            <button
-              onClick={generateNewColors}
-              className="p-2 hover:bg-muted rounded-lg transition-colors"
-              aria-label="Generate new colors"
-            >
-              <RefreshCw className="w-5 h-5" />
-            </button>
-          </div>
+      <div className="max-w-2xl mx-auto">
+        <div className="flex flex-col gap-4">
           <div className="grid gap-4">
             {colors.map((color, index) => (
               <motion.div
@@ -203,6 +202,6 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
           </div>
         </div>
       </div>
-    </motion.section>
+    </motion.div>
   );
 }
