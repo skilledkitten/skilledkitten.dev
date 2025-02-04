@@ -28,7 +28,7 @@ export default function ToolsPage() {
         <ToolsGrid />
       </div>
       {isPastelGenOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/40 backdrop-filter backdrop-blur-md flex items-center justify-center">
           <div className="relative bg-white rounded p-4 w-96">
             <button onClick={closePastelGen} className="absolute top-2 right-2">
               X
