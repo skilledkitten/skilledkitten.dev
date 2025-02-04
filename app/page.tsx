@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { NavBar } from '@/components/navbar';
 import { About } from '@/components/about';
 import { Projects } from '@/components/projects';
-import { ColorGenerator } from '@/components/color-generator';
+import { ColorGenerator } from '@/components/tools/color-generator';
 import { Modal } from '@/components/modal';
 
 export default function Home() {
