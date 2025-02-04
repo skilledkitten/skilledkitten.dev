@@ -112,8 +112,7 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
     >
       <div className="max-w-2xl mx-auto p-6">
         <div className="flex flex-col gap-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold">Pastel Color Generator</h2>
+          <div className="flex justify-end items-center">
             <button
               onClick={generateNewColors}
               className="p-2 hover:bg-muted rounded-lg transition-colors"
@@ -122,7 +121,6 @@ export function ColorGenerator({ isActive }: ColorGeneratorProps) {
               <RefreshCw className="w-5 h-5" />
             </button>
           </div>
-
           <div className="grid gap-4">
             {colors.map((color, index) => (
               <motion.div

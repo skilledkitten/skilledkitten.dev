@@ -32,15 +32,18 @@ export default function ToolsPage() {
       {isPastelGenOpen && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-8">
           <div className="relative bg-white rounded-lg shadow-xl p-8 w-[800px] h-[600px] overflow-auto">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                closePastelGen();
-              }}
-              className="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors z-[60]"
-            >
-              <X size={20} />
-            </button>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Pastel Color Generator</h2>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  closePastelGen();
+                }}
+                className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors z-[60]"
+              >
+                <X size={20} />
+              </button>
+            </div>
             <ColorGenerator isActive={true} onExpand={() => {}} />
           </div>
         </div>
