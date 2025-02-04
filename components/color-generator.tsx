@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Copy, RefreshCw, Check } from 'lucide-react';
 
 interface ColorGeneratorProps {
@@ -59,12 +59,24 @@ function generateRandomColors(): ColorInfo[] {
   );
 }
 
+// Use a fixed seed for initial render
+function generateInitialColors(): ColorInfo[] {
+  const fixedSeed = 12345; // Any constant number
+  return Array.from({ length: 5 }, (_, i) =>
+    generatePastelColor((fixedSeed + i) % 1000000)
+  );
+}
+
 export function ColorGenerator({ isActive }: ColorGeneratorProps) {
-  // Initialize with random colors each time the page loads.
-  const [colors, setColors] = useState<ColorInfo[]>(generateRandomColors());
+  const [colors, setColors] = useState<ColorInfo[]>(generateInitialColors());
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
+
+  // Generate random colors after initial mount
+  useEffect(() => {
+    setColors(generateRandomColors());
+  }, []);
 
   const generateNewColors = () => {
     const timestamp = Date.now();
