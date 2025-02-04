@@ -10,7 +10,7 @@ interface NavBarProps {
 
 export function NavBar({ activeSection, onNavigate }: NavBarProps) {
   const navItems = [
-    { id: "about", icon: UserCircle2, label: "About" },
+    { id: "/", icon: UserCircle2, label: "About" },
     { id: "projects", icon: Briefcase, label: "Projects" },
     { id: "tools", icon: PocketKnife, label: "Tools" },
   ];
