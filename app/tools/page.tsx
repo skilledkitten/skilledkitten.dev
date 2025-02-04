@@ -25,13 +25,7 @@ export default function ToolsPage() {
     <>
       <NavBar activeSection={activeSection} onNavigate={handleNavigate} />
       <div className={`min-h-screen pt-20 ${isPastelGenOpen ? "blur-sm" : ""}`}>
-        <button
-          onClick={openPastelGen}
-          className="m-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        >
-          Open Pastel Generator
-        </button>
-        <ToolsGrid />
+        <ToolsGrid onToolClick={openPastelGen} />
       </div>
       {isPastelGenOpen && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">

@@ -11,6 +11,10 @@ interface Tool {
   component: React.ComponentType<{ isActive: boolean; onExpand: () => void }>;
 }
 
+interface ToolsGridProps {
+  onToolClick: () => void;
+}
+
 const tools: Tool[] = [
   {
     id: 'pastel-generator',
@@ -21,11 +25,14 @@ const tools: Tool[] = [
   // Add more tools here as needed
 ];
 
-export function ToolsGrid() {
+export function ToolsGrid({ onToolClick }: ToolsGridProps) {
   const [activeTool, setActiveTool] = useState<string | null>(null);
 
   const handleExpand = (toolId: string) => {
     setActiveTool(activeTool === toolId ? null : toolId);
+    if (toolId === 'pastel-generator') {
+      onToolClick();
+    }
   };
 
   return (
