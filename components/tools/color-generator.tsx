@@ -7,7 +7,7 @@ import { Copy, RefreshCw, Check } from 'lucide-react';
 interface ColorGeneratorProps {
   isActive: boolean;
   onExpand: (content: { title: string; content: React.ReactNode }) => void;
-  onGenerateColors?: () => void;
+  onGenerateColors?: (fn: () => void) => void;
 }
 
 interface ColorInfo {
@@ -86,13 +86,12 @@ export function ColorGenerator({ isActive, onExpand, onGenerateColors }: ColorGe
         generatePastelColor((timestamp + i) % 1000000)
       )
     );
-    onGenerateColors?.();
   };
 
-  // Expose generateNewColors to parent
+  // Update the effect to properly expose generateNewColors
   useEffect(() => {
     if (onGenerateColors) {
-      onGenerateColors = generateNewColors;
+      onGenerateColors(generateNewColors);
     }
   }, [onGenerateColors]);
 
