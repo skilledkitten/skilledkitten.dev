@@ -24,7 +24,7 @@ export default function ToolsPage() {
   return (
     <>
       <NavBar activeSection={activeSection} onNavigate={handleNavigate} />
-      <div className="min-h-screen pt-20">
+      <div className={`min-h-screen pt-20 ${isPastelGenOpen ? "filter blur-sm" : ""}`}>
         <ToolsGrid />
       </div>
       {isPastelGenOpen && (
