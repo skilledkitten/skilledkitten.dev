@@ -16,20 +16,18 @@ export function NavBar({ activeSection, onNavigate }: NavBarProps) {
   ];
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50">
-      <nav className="h-14 flex items-center px-4 lg:px-6 border-b border-border bg-background/80 backdrop-blur-sm">
-        <div className="flex items-center gap-2">
-          {navItems.map((item) => (
-            <IconButton
-              key={item.id}
-              icon={item.icon}
-              label={item.label}
-              isActive={activeSection === item.id}
-              onClick={() => onNavigate(item.id)}
-            />
-          ))}
-        </div>
-      </nav>
-    </div>
+    <nav className="h-14 flex items-center px-4 lg:px-6 border-b border-border bg-background/80 backdrop-blur-sm">
+      <div className="flex items-center gap-2">
+        {navItems.map((item) => (
+          <IconButton
+            key={item.id}
+            icon={item.icon}
+            label={item.label}
+            isActive={activeSection === item.id}
+            onClick={() => onNavigate(item.id)}
+          />
+        ))}
+      </div>
+    </nav>
   );
 }

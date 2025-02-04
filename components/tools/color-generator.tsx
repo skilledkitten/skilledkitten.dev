@@ -112,8 +112,8 @@ export function ColorGenerator({ isActive, onExpand, onGenerateColors }: ColorGe
   return (
     <motion.div
       className={`${
-        isActive ? 'pointer-events-auto z-10' : 'pointer-events-none opacity-0'
-      } relative`}
+        isActive ? 'pointer-events-auto' : 'pointer-events-none opacity-0'
+      } relative pt-14`}
       animate={{ opacity: isActive ? 1 : 0 }}
       transition={{ duration: 0.3 }}
     >
