@@ -24,7 +24,7 @@ export function NavBar({ activeSection, onNavigate }: NavBarProps) {
             icon={item.icon}
             label={item.label}
             isActive={activeSection === item.id}
-            onClick={() => onNavigate(item.id === "tools" ? "/tools" : item.id)}
+            onClick={() => onNavigate(item.id === "tools" ? "tools" : item.id)}
           />
         ))}
       </div>
