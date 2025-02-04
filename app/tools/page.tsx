@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { NavBar } from "@/components/navbar";
 import { ToolsGrid } from '../../components/tools/tools-grid';
+import { ColorGenerator } from '../../components/tools/color-generator';
 
 export default function ToolsPage() {
   const [activeSection, setActiveSection] = useState("tools");
@@ -37,7 +38,7 @@ export default function ToolsPage() {
               ✕
             </button>
             <h2 className="text-xl font-bold mb-4">Pastel Color Generator</h2>
-            {/* Pastel color generator content goes here */}
+            <ColorGenerator isActive={true} onExpand={() => {}} />
           </div>
         </div>
       )}
