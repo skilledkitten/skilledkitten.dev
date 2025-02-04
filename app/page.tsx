@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { NavBar } from '@/components/navbar';
 import { About } from '@/components/about';
 import { Projects } from '@/components/projects';
-import { ColorGenerator } from '@/components/color-generator';
+import { ColorGenerator } from '@/components/tools/color-generator';
 import { Modal } from '@/components/modal';
 
 export default function Home() {
@@ -14,9 +15,15 @@ export default function Home() {
     content: React.ReactNode;
   } | null>(null);
 
+  const router = useRouter();
+
+  function handleNavigate(section: string) {
+    router.push(`/${section}`);
+  }
+
   return (
     <main className="h-screen w-screen overflow-hidden bg-background relative">
-      <NavBar activeSection={activeSection} onNavigate={setActiveSection} />
+      <NavBar activeSection={activeSection} onNavigate={handleNavigate} />
 
       <div className="w-full h-full pt-24 px-4 md:px-8 relative z-0">
         <About
