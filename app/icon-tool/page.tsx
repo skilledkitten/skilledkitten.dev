@@ -3,8 +3,11 @@
 import React, { useState, useRef } from "react";
 import * as LucideIcons from "lucide-react";
 
+// Only include keys that start with an uppercase letter to filter out non-icon exports.
 const iconNames = Object.keys(LucideIcons).filter(
-  (name) => typeof (LucideIcons as any)[name] === "function"
+  (name) =>
+    name[0] === name[0].toUpperCase() &&
+    typeof (LucideIcons as any)[name] === "function"
 );
 
 export default function IconToolPage() {
