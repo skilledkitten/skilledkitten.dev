@@ -1,5 +1,6 @@
 "use client";
 
+import React from 'react';
 import { useIconStore } from '@/store/iconStore';
 import { Card } from '@/components/ui/card';
 import { icons } from 'lucide-react';
@@ -9,11 +10,11 @@ import { Download } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export function PreviewPanel() {
-  const { selectedIcon, customization } = useIconStore();
+  const { selectedIconId } = useIconStore();
   const { toast } = useToast();
 
   const handleExport = async () => {
-    if (!selectedIcon) return;
+    if (!selectedIconId) return;
 
     try {
       const svg = document.querySelector('#preview-icon svg')?.cloneNode(true) as SVGElement;
@@ -26,7 +27,7 @@ export function PreviewPanel() {
 
       const link = document.createElement('a');
       link.href = url;
-      link.download = `${selectedIcon}.svg`;
+      link.download = `${selectedIconId}.svg`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -34,7 +35,7 @@ export function PreviewPanel() {
 
       toast({
         title: 'Icon exported',
-        description: `Saved as ${selectedIcon}.svg`,
+        description: `Saved as ${selectedIconId}.svg`,
       });
     } catch (error) {
       toast({
@@ -45,7 +46,7 @@ export function PreviewPanel() {
     }
   };
 
-  const SelectedIcon = selectedIcon ? (icons as Record<string, React.ComponentType>)[selectedIcon] : null;
+  const SelectedIcon = selectedIconId ? (icons as Record<string, React.ComponentType>)[selectedIconId] : null;
 
   return (
     <Card className="p-4">
@@ -55,7 +56,7 @@ export function PreviewPanel() {
           variant="outline"
           size="sm"
           onClick={handleExport}
-          disabled={!selectedIcon}
+          disabled={!selectedIconId}
         >
           <Download className="h-4 w-4 mr-2" />
           Export SVG
@@ -66,7 +67,7 @@ export function PreviewPanel() {
         <AnimatePresence mode="wait">
           {SelectedIcon ? (
             <motion.div
-              key={selectedIcon}
+              key={selectedIconId}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}

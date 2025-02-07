@@ -8,11 +8,12 @@ import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { icons } from 'lucide-react';
 import { motion } from 'framer-motion';
+import React from 'react';
 
 export function IconBrowser() {
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 300);
-  const { setSelectedIcon, selectedIcon } = useIconStore();
+  const { setSelectedIcon, selectedIcon, selectedIconId, setSelectedIconId } = useIconStore();
 
   // Filter icons using the icons object from lucide-react
   const filteredIcons = Object.entries(icons).filter(([name]) =>
@@ -59,6 +60,12 @@ export function IconBrowser() {
           ))}
         </div>
       </ScrollArea>
+      <div>
+        <h2>Icon Browser</h2>
+        <p>Selected Icon: {selectedIconId}</p>
+
+        <button onClick={() => setSelectedIconId(1)}>Select Icon 1</button>
+      </div>
     </Card>
   );
 }

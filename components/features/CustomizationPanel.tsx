@@ -8,9 +8,10 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Undo2, Redo2, Save } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import React from 'react';
 
 export function CustomizationPanel() {
-  const { customization, updateCustomization, undo, redo, savePreset } = useIconStore();
+  const { customization, updateCustomization, undo, redo, savePreset, selectedIconId, setSelectedIconId } = useIconStore();
   const { toast } = useToast();
 
   const handleSavePreset = () => {
@@ -118,6 +119,12 @@ export function CustomizationPanel() {
             step={0.1}
           />
         </div>
+      </div>
+
+      <div>
+        <h2>Customization Panel</h2>
+        <p>Customize Icon: {selectedIconId}</p>
+        <button onClick={() => setSelectedIconId(null)}>Reset</button>
       </div>
     </Card>
   );
