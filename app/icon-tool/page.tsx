@@ -38,29 +38,3 @@ export default function Home() {
     </main>
   );
 }
-
-export function IconToolPage() {
-  const { icons, toggleIcon } = useIconTool();  // your imported hook
-  const [activeIconId, setActiveIconId] = useState<number | null>(null);
-
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4">Icon Tool</h1>
-
-      <div className="grid grid-cols-3 gap-4">
-        {icons.map((iconItem: { id: number; label: string; icon: React.ElementType }) => (
-          <IconButton
-            key={iconItem.id}
-            icon={iconItem.icon}
-            label={iconItem.label}
-            isActive={activeIconId === iconItem.id}
-            onClick={() => {
-              setActiveIconId(iconItem.id);
-              toggleIcon(iconItem.id);
-            }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
