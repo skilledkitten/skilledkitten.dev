@@ -11,6 +11,9 @@ interface Customization {
 interface IconState {
   selectedIconId: number | null;
   setSelectedIconId: (id: number | null) => void;
+  // New properties added:
+  selectedIcon: string | null;
+  setSelectedIcon: (icon: string | null) => void;
   customization: Customization;
   updateCustomization: (updates: Partial<Customization>) => void;
   undo: () => void;
@@ -21,6 +24,9 @@ interface IconState {
 export const useIconStore = create<IconState>((set, get) => ({
   selectedIconId: null,
   setSelectedIconId: (id) => set({ selectedIconId: id }),
+  // Added new icon selection state:
+  selectedIcon: null,
+  setSelectedIcon: (icon) => set({ selectedIcon: icon }),
   customization: {
     size: 48,
     strokeWidth: 1,
