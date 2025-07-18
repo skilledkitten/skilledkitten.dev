@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'skilledkitten.dev',
   description: 'Public website with useful features for anyone.',
+  other: {
+    'cf-2fa-verify': 'e9018ddc65e02bb',
+  },
 };
 
 export default function RootLayout({
