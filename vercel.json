@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/.well-known/cf-2fa-verify.txt",
+      "destination": "/.well-known/cf-2fa-verify.txt"
+    }
+  ]
+}
